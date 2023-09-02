@@ -48,11 +48,10 @@ let computerChoice = getComputerChoice();
 
 // let playerChoice = prompt("Rock, Paper, or Scissors?");
 // playerChoice = playerChoice.toLowerCase();
+let playerWins = 0;
+let computerWins = 0;
 
 function round(playerChoice, computerChoice) {
-  let playerWins = 0;
-  let computerWins = 0;
-
   if (playerChoice === "rock" && computerChoice === "scissors") {
     playerWins++;
   } else if (playerChoice === "rock" && computerChoice === "paper") {
@@ -75,6 +74,17 @@ function round(playerChoice, computerChoice) {
       : playerWins === computerWins
       ? `You both chose ${playerChoice}`
       : `You lose ${computerChoice} beats ${playerChoice}`;
+
+  if (playerWins === 5) {
+    results.textContent = "You are smarter than the computer!";
+    playerWins = 0;
+    computerWins = 0;
+  }
+  if (computerWins === 5) {
+    results.textContent = "Computers are going to take over the world";
+    playerWins = 0;
+    computerWins = 0;
+  }
 }
 
 // best of 5 game - in console - to play, move playerWins and computerWins to global vars and uncomment below code
