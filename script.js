@@ -15,26 +15,41 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-let computerChoice = getComputerChoice();
-let playerChoice = prompt("Rock, Paper, or Scissors?");
-playerChoice = playerChoice.toLowerCase();
+// let computerChoice = getComputerChoice();
+// let playerChoice = prompt("Rock, Paper, or Scissors?");
+// playerChoice = playerChoice.toLowerCase();
+
+let playerWins = 0;
+let computerWins = 0;
 
 function round(playerChoice, computerChoice) {
   if (playerChoice === "rock" && computerChoice === "scissors") {
-    return "You win. Rock beats Scissors";
+    return playerWins++;
   } else if (playerChoice === "rock" && computerChoice === "paper") {
-    return "You lose. Paper beats Rock";
+    return computerWins++;
   } else if (playerChoice === "paper" && computerChoice === "rock") {
-    return "You win. Paper beats Rock";
+    return playerWins++;
   } else if (playerChoice === "paper" && computerChoice === "scissors") {
-    return "You lose. Scissors beats Paper";
+    return computerWins++;
   } else if (playerChoice === "scissors" && computerChoice === "paper") {
-    return "You win. Scissors beats Paper";
+    return playerWins++;
   } else if (playerChoice === "scissors" && computerChoice === "rock") {
-    return "You lose. Rock beats Scissors";
+    return computerWins++;
   } else if (playerChoice === computerChoice) {
-    return "You tied.";
+    return null;
   }
 }
 
-console.log(round(playerChoice, computerChoice));
+function game() {
+  for (let i = 0; i < 5; i++) {
+    const computerChoice = getComputerChoice();
+    const playerChoice = prompt("Rock, Paper, or Scissors?").toLowerCase();
+
+    round(computerChoice, playerChoice);
+    console.log(playerWins, computerWins);
+  }
+
+  console.log(playerWins > computerWins ? "You win" : "Computer win");
+}
+
+game();
