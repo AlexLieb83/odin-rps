@@ -50,9 +50,11 @@ function playRound() {
   }
 }
 
+const ROUNDS_IN_GAME = 5;
+
 //play full game -- 5 rounds
 function playGame() {
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < ROUNDS_IN_GAME; i++) {
     let result = playRound();
 
     if (result == "player") {
