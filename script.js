@@ -1,3 +1,11 @@
+//players score
+let humanScore = 0;
+let computerScore = 0;
+
+let resultsMessage = "No Results!";
+let humanScoreMessage = `You have ${humanScore} points`;
+let computerScoreMessage = `Computer has ${computerScore} points`;
+
 //get computer choice
 function getComputerChoice() {
   let choices = ["rock", "paper", "scissors"];
@@ -6,20 +14,9 @@ function getComputerChoice() {
   return choices[randomIndex];
 }
 
-//get human choice
-function getHumanChoice() {
-  const userChoice = prompt("Rock", "Paper", "Scissors").toLowerCase();
-
-  return userChoice;
-}
-
-//players score
-var humanScore = 0;
-var computerScore = 0;
-
 //play round
-function playRound() {
-  let humanChoice = getHumanChoice();
+function playRound(humanChoice) {
+  // let humanChoice = getHumanChoice();
   let computerChoice = getComputerChoice();
   //rock - scissors - USER WINS
   //paper - rock - USER WINS
@@ -29,8 +26,9 @@ function playRound() {
     (humanChoice == "paper" && computerChoice == "rock") ||
     (humanChoice == "scissors" && computerChoice == "paper")
   ) {
-    console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-    return "player";
+    resultsMessage = `You win! ${humanChoice} beats ${computerChoice}`;
+    humanScore += 1;
+    humanScoreMessage = `You have ${humanScore} points`;
   }
   //rock - paper - COMP WINS
   //paper - scissors - COMP WINS
@@ -40,35 +38,64 @@ function playRound() {
     (computerChoice == "paper" && humanChoice == "rock") ||
     (computerChoice == "scissors" && humanChoice == "paper")
   ) {
-    console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-    return "computer";
+    resultsMessage = `You lose! ${computerChoice} beats ${humanChoice}`;
+    computerScore += 1;
+    computerScoreMessage = `Computer has ${computerScore} points`;
   } else {
     //rock - rock - TIE
     //paper - paper - TIE
     //scissors - scissors - TIE
-    console.log(`You tie! You both chose ${humanChoice}`);
+    resultsMessage = `You tie! You both chose ${humanChoice}`;
+  }
+
+  if (humanScore >= 5) {
+    resultsMessage = `GAME OVER. You win!`;
+    messageP.textContent = resultsMessage;
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
+  } else if (computerScore >= 5) {
+    resultsMessage = `GAME OVER. Computer wins!`;
+    messageP.textContent = resultsMessage;
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
   }
 }
 
-const ROUNDS_IN_GAME = 5;
+//RPS - UI
+const rockBtn = document.getElementById("rock");
 
-//play full game -- 5 rounds
-function playGame() {
-  for (i = 0; i < ROUNDS_IN_GAME; i++) {
-    let result = playRound();
+rockBtn.addEventListener("click", () => {
+  playRound("rock");
+  messageP.textContent = resultsMessage;
+  humanScoreP.textContent = humanScoreMessage;
+  computerScoreP.textContent = computerScoreMessage;
+});
 
-    if (result == "player") {
-      humanScore += 1;
-    } else if (result == "computer") {
-      computerScore += 1;
-    }
+const paperBtn = document.getElementById("paper");
 
-    console.log(`comp score: ${computerScore}`);
-    console.log(`human score: ${humanScore}`);
-  }
+paperBtn.addEventListener("click", () => {
+  playRound("paper");
+  messageP.textContent = resultsMessage;
+  humanScoreP.textContent = humanScoreMessage;
+  computerScoreP.textContent = computerScoreMessage;
+});
 
-  return humanScore > computerScore ? "Human Wins" : "Computer Wins";
-}
+const scissorsBtn = document.getElementById("scissors");
 
-//so we can see the game in the console
-console.log(playGame());
+scissorsBtn.addEventListener("click", () => {
+  playRound("scissors");
+  messageP.textContent = resultsMessage;
+  humanScoreP.textContent = humanScoreMessage;
+  computerScoreP.textContent = computerScoreMessage;
+});
+
+const messageP = document.getElementById("message");
+messageP.textContent = resultsMessage;
+
+const humanScoreP = document.getElementById("humanScore");
+humanScoreP.textContent = humanScoreMessage;
+
+const computerScoreP = document.getElementById("compScore");
+computerScoreP.textContent = computerScoreMessage;
